@@ -10,11 +10,18 @@ import { StudentService } from '../../services/student.service';
 })
 export class StudentListComponent implements OnInit {
   students$: Observable<Student[]>;
+  columnsToDisplay = ['id', 'firstName', 'lastName', 'actions'];
 
   constructor(private _studentService: StudentService) { }
 
   ngOnInit(): void {
-    this.students$ = this._studentService.get();
+    this.students$ = this._studentService.getStudents();
+  }
+
+  deleteStudent(id: number) {
+    this._studentService.deleteStudent(id).subscribe(() => {
+      this.students$ = this._studentService.getStudents();
+    });
   }
 
 }

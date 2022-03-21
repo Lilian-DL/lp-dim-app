@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { Student } from 'src/app/core/models/student';
 import { environment } from 'src/environments/environment';
 
@@ -12,9 +12,35 @@ export class StudentService {
 
   constructor(private _http: HttpClient) { }
 
-  get(): Observable<Student[]>{
+  getStudents(): Observable<Student[]> {
     return this._http.get<Student[]>(
       `${environment.apiBaseUrl}${this.studentPath}`
+    );
+  }
+
+  getStudent(id: number): Observable<Student> {
+    return this._http.get<Student>(
+      `${environment.apiBaseUrl}${this.studentPath}/${id}`
+    );
+  }
+
+  createStudent(student: Student): Observable<Student> {
+    return this._http.post<Student>(
+      `${environment.apiBaseUrl}${this.studentPath}`,
+      student
+    );
+  }
+
+  updateStudent(student: Student): Observable<Student> {
+    return this._http.put<Student>(
+      `${environment.apiBaseUrl}${this.studentPath}/${student.id}`,
+      student
+    );
+  }
+
+  deleteStudent(id: number): Observable<any> {
+    return this._http.delete(
+      `${environment.apiBaseUrl}${this.studentPath}/${id}`
     );
   }
 }
