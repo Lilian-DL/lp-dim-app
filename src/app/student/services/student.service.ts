@@ -1,45 +1,43 @@
-import { HttpClient } from '@angular/common/http';
+import { environment } from './../../../environments/environment';
+import { Student } from './../../core/models/student';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Student } from 'src/app/core/models/student';
-import { environment } from 'src/environments/environment';
-
+import { HttpClient } from '@angular/common/http';
+import { max, Observable } from 'rxjs';
 
 @Injectable()
 export class StudentService {
+  private readonly studentPath: string = '/students';
 
-  private readonly studentPath: string = "/students";
+  constructor(private _http: HttpClient) {}
 
-  constructor(private _http: HttpClient) { }
-
-  getStudents(): Observable<Student[]> {
+  get(): Observable<Student[]> {
     return this._http.get<Student[]>(
       `${environment.apiBaseUrl}${this.studentPath}`
     );
   }
 
-  getStudent(id: number): Observable<Student> {
+  getById(id: number): Observable<Student> {
     return this._http.get<Student>(
       `${environment.apiBaseUrl}${this.studentPath}/${id}`
     );
   }
 
-  createStudent(student: Student): Observable<Student> {
-    return this._http.post<Student>(
+  create(student: Student): Observable<string> {
+    return this._http.post<string>(
       `${environment.apiBaseUrl}${this.studentPath}`,
       student
     );
   }
 
-  updateStudent(student: Student): Observable<Student> {
-    return this._http.put<Student>(
+  update(student: Student): Observable<string> {
+    return this._http.put<string>(
       `${environment.apiBaseUrl}${this.studentPath}/${student.id}`,
       student
     );
   }
 
-  deleteStudent(id: number): Observable<any> {
-    return this._http.delete(
+  delete(id: number): Observable<string> {
+    return this._http.delete<string>(
       `${environment.apiBaseUrl}${this.studentPath}/${id}`
     );
   }
