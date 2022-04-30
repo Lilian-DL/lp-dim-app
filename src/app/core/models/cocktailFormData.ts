@@ -1,6 +1,6 @@
 import { Cocktail } from './cocktail';
 
-export interface StudentFormData {
+export interface CocktailFormData {
   isUpdateMode: boolean;
   studentToUpdate?: Cocktail;
   idToCreate?: number;

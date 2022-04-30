@@ -1,0 +1,25 @@
+<p>cocktail-details works!</p>
+
+{{ cocktail$ | async | json }}
+
+<mat-card class="example-card" *ngIf="cocktail$ | async; let cocktail">
+  <mat-card-header>
+    <mat-card-title>{{ cocktail.name | titlecase }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <ul>
+      <li><b>Bar :</b> {{ cocktail.bar }}</li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="deleteCocktail(cocktail.id)">
+      Delete
+    </button>
+    <button mat-raised-button color="primary" (click)="updateCocktail(cocktail)">
+      Update
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<button mat-raised-button color="warn" (click)="goBack()">Go Back</button>
