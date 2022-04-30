@@ -14,7 +14,7 @@ import { CocktailFormData } from 'src/app/core/models/cocktailFormData';
 })
 export class CocktailListComponent implements OnInit {
   cocktails$: Observable<Cocktail[]>;
-  displayedColumns: string[] = ['id', 'name', 'bar'];
+  displayedColumns: string[] = ['id', 'name'];
 
   //Bidouille
   ids: number[] = [];
